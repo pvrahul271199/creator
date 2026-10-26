@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+/*
+  Boardroom design tokens.
+  Default world: "Flight Plan" (indigo shell, cool paper, cobalt work, saffron deadlines,
+  green cash, vermilion only for overdue). Alternate preview: "Graphite" via data-theme.
+  Semantic roles are the same in both; only values change.
+*/
+:root,
+[data-theme="flight"] {
+  --background: #fafafa;
+  --foreground: #09090b;
+  --surface: #ffffff;
+  --surface-2: #f4f4f5;
+  --border: #e4e4e7;
+  --border-strong: #d4d4d8;
+  --muted: #71717a;
+  --primary: #18181b;
+  --primary-foreground: #fafafa;
+  --primary-soft: #f4f4f5;
+  --rail: #ffffff;
+  --rail-foreground: #71717a;
+  --rail-active: #f4f4f5;
+  --deadline: #d97706;
+  --deadline-text: #92400e;
+  --cash: #16a34a;
+  --cash-text: #15803d;
+  --overdue: #dc2626;
+  --overdue-text: #b91c1c;
+  --ring: #a1a1aa;
+  color-scheme: light;
+}
+
+[data-theme="graphite"] {
+  --background: #09090b;
+  --foreground: #fafafa;
+  --surface: #121214;
+  --surface-2: #1c1c1f;
+  --border: #27272a;
+  --border-strong: #3f3f46;
+  --muted: #a1a1aa;
+  --primary: #fafafa;
+  --primary-foreground: #18181b;
+  --primary-soft: #1c1c1f;
+  --rail: #121214;
+  --rail-foreground: #a1a1aa;
+  --rail-active: #1c1c1f;
+  --deadline: #fbbf24;
+  --deadline-text: #fbbf24;
+  --cash: #4ade80;
+  --cash-text: #4ade80;
+  --overdue: #f87171;
+  --overdue-text: #f87171;
+  --ring: #52525b;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-rail: var(--rail);
+  --color-rail-foreground: var(--rail-foreground);
+  --color-rail-active: var(--rail-active);
+  --color-deadline: var(--deadline);
+  --color-deadline-text: var(--deadline-text);
+  --color-cash: var(--cash);
+  --color-cash-text: var(--cash-text);
+  --color-overdue: var(--overdue);
+  --color-overdue-text: var(--overdue-text);
+  --color-ring: var(--ring);
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  /* Bump the tiny type scale so dense screens stay readable. */
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.25rem;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.375rem;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Figures in tables and metrics align by column. */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Browser surfaces take the palette. */
+::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+input,
+textarea,
+select {
+  caret-color: var(--primary);
+}
+* {
+  scrollbar-color: var(--border-strong) transparent;
+  scrollbar-width: thin;
+}
+a {
+  text-underline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* Invoice documents: always print on white paper, whatever theme the app wears. */
+.paper {
+  background: #ffffff;
+  color: #14152b;
+}
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+  html,
+  body {
+    background: #fff !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .paper {
+    box-shadow: none !important;
+    border: 0 !important;
+  }
+}
